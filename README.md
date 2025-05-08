@@ -13,6 +13,8 @@ https://github.com/user-attachments/assets/1a03d481-c32a-465c-a6e3-8551618a4718
 ### Рекомендуется использовать CUDA (некоторые операции всё равно выполняются на CPU)
 *Cuda разботает через раз.
 #### Версия Python: ```3.12```
+
+Гайд по установке CUDA: https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#preload-dlls
 #### Cuda:
 https://developer.nvidia.com/cuda-downloads?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_network
 
