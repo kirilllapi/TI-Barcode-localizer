@@ -1,11 +1,27 @@
-import  onnxruntime as onr
+import onnxruntime as onr
 import numpy as np
 import cv2
+import os
 
-session  = onr.InferenceSession("source/model/model.onnx")
+
+# Какие провайдеры распознаются (проверка)
+print(onr.get_available_providers())
+
+# Загрузка модели с использованием CPU
+# session  = onr.InferenceSession("source/model/model.onnx", providers=['CPUExecutionProvider'])
+
+# Загрузка модели с использованием CUDA
+cuda_path = os.path.join(os.environ["CUDA_PATH"], "bin")
+onr.preload_dlls(cuda=True, cudnn=False, directory=cuda_path)
+
+cudnn_path = os.path.join(os.environ["CUDNN_PATH"], "bin\\12.9")
+onr.preload_dlls(cuda=False, cudnn=True, directory=cudnn_path)
+
+onr.print_debug_info()
+
+session  = onr.InferenceSession("source/model/model.onnx", providers=['CUDAExecutionProvider'])
 
 print(session)
-print(onr.get_available_providers())
 #######################################################################
 # NodeArg(name='inputNet_IN', type='tensor(uint8)', shape=[1, 3, 416, 416]):
 #     1) tensor(uint8) - значение пикселя
