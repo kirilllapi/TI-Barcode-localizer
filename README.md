@@ -11,7 +11,7 @@ https://github.com/user-attachments/assets/1a03d481-c32a-465c-a6e3-8551618a4718
   4) Запустить ```main.py```.
 
 ### Рекомендуется использовать CUDA (некоторые операции всё равно выполняются на CPU)
-*Cuda разботает через раз.
+*Cuda работает через раз.
 #### Версия Python: ```3.12```
 
 Гайд по установке CUDA: https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#preload-dlls
