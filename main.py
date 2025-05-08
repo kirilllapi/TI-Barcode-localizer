@@ -8,18 +8,18 @@ import os
 print(onr.get_available_providers())
 
 # Загрузка модели с использованием CPU
-# session  = onr.InferenceSession("source/model/model.onnx", providers=['CPUExecutionProvider'])
+session  = onr.InferenceSession("source/model/model.onnx", providers=['CPUExecutionProvider'])
 
 # Загрузка модели с использованием CUDA
-cuda_path = os.path.join(os.environ["CUDA_PATH"], "bin")
-onr.preload_dlls(cuda=True, cudnn=False, directory=cuda_path)
-
-cudnn_path = os.path.join(os.environ["CUDNN_PATH"], "bin\\12.9")
-onr.preload_dlls(cuda=False, cudnn=True, directory=cudnn_path)
-
-onr.print_debug_info()
-
-session  = onr.InferenceSession("source/model/model.onnx", providers=['CUDAExecutionProvider'])
+# cuda_path = os.path.join(os.environ["CUDA_PATH"], "bin")
+# onr.preload_dlls(cuda=True, cudnn=False, directory=cuda_path)
+#
+# cudnn_path = os.path.join(os.environ["CUDNN_PATH"], "bin\\12.9")
+# onr.preload_dlls(cuda=False, cudnn=True, directory=cudnn_path)
+#
+# onr.print_debug_info()
+#
+# session  = onr.InferenceSession("source/model/model.onnx", providers=['CUDAExecutionProvider'])
 
 print(session)
 #######################################################################
@@ -59,7 +59,7 @@ while(cap.isOpened()):
     image_resize = cv2.resize(image, (416, 416))
 
     #######################################################################
-    # Передача тензору данных происходит в след. виде: image : Channel, Height, Width, а у нас image : Width, Height, Channel.
+    # Передача тензору данных происходит в след. виде: src_image : Channel, Height, Width, а у нас src_image : Width, Height, Channel.
     # Поэтому меняем оси так:
     # Новая 0-я ось ← старая 2-я (каналы),
     # Новая 1-я ось ← старая 0-я (высота),
@@ -85,18 +85,18 @@ while(cap.isOpened()):
     for det, cls in zip(dets, labels):
         x_min, y_min, x_max, y_max, conf = det
 
-        if conf > 0.6:
+        if conf > 0.3:
             # Масштабирование
             x1 = int(x_min * scale_x)
             y1 = int(y_min * scale_y)
             x2 = int(x_max * scale_x)
             y2 = int(y_max * scale_y)
 
-            # рисуем прямоугольник и подпись
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            # Рисуем прямоугольник и подпись
+            cv2.rectangle(frame, (x2, y2), (x1, y1), (0, 255, 0), 2)
             label_text = f"confidence: {conf:.2f}"
             cv2.putText(frame, label_text, (x1, max(y1 - 10, 0)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
     cv2.imshow("Detections", frame)
     if cv2.waitKey(1) & 0xFF == 27:
