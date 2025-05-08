@@ -1,5 +1,9 @@
 # Порядок настройки и запуска.
 
+
+https://github.com/user-attachments/assets/1a03d481-c32a-465c-a6e3-8551618a4718
+
+
 ## Получение кадров с Luck-fox Pico Ultra W:
   1) Прошить Luck-fox Pico Ultra W под BuildRoot (Документация: https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-RV1106/Luckfox-Pico-Ultra-W/Luckfox-Pico-emmc-burn-image/);
   2) Включить драйвера камеры (CSI);
